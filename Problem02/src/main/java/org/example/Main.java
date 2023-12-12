@@ -6,17 +6,19 @@ public class Main {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
+        Bank bank = new Bank();
+
         int userChoise = 0;
 
         do {
             System.out.println("=================Select a Service=================");
-            System.out.println("1. Add account");
+            System.out.println("1. Account");
             System.out.println("2. Add customer");
             System.out.println("3. Show all accounts");
             System.out.println("4. Show all customers");
             System.out.println("5. Remove account");
             System.out.println("6. Remove customer");
-            System.out.println("7. Deposit money");
+//            System.out.println("7. Deposit money");
             System.out.println("8. Exit");
             System.out.printf("Enter your choice (1-6): ");
 
@@ -32,45 +34,29 @@ public class Main {
             switch (userChoise){
                 case 1:
                     BankAccount bankAccount = new BankAccount();
-                    Bank bank = new Bank();
-                    bank.addAccount(bankAccount);
                     break;
 
                 case 2:
                     Customer customer = new Customer();
-                    Bank bank1 = new Bank();
-                    bank1.addCustomer(customer);
+                    bank.addCustomer(customer);
                     break;
 
                 case 3:
-                    Bank bank2 = new Bank();
-                    bank2.displayAccountInformation();
+                    bank.displayAccountInformation();
                     break;
 
                 case 4:
-                    Bank bank3 = new Bank();
-                    bank3.displayCustomerInformation();
+                    bank.displayCustomerInformation();
                     break;
 
                 case 5:
-                    Bank bank4 = new Bank();
                     System.out.print("Enter the account number:");
-                    bank4.removeAccount(scanner.nextInt());
+                    bank.removeAccount(scanner.nextInt());
                     break;
 
                 case 6:
-                    Bank bank5 = new Bank();
                     System.out.print("Enter the customer ID:");
-                    bank5.removeCustomer(scanner.nextInt());
-                    break;
-
-                case 7:
-                    System.out.printf("Enter account number: ");
-                    int accountNumber = scanner.nextInt();
-                    System.out.printf("Enter amount: ");
-                    double amount = scanner.nextDouble();
-                    BankAccount bankAccount1 = new BankAccount(accountNumber,amount);
-//                    bankAccount1.depositMoney();
+                    bank.removeCustomer(scanner.nextInt());
                     break;
 
                 default:
