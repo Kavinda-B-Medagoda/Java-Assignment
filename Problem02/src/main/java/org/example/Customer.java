@@ -10,23 +10,25 @@ public class Customer {
 
     Scanner scanner = new Scanner(System.in);
 
-    public Customer() {
-        System.out.printf("Enter customer ID: ");
-        this.setCustomerID(scanner.nextInt());
-        scanner.nextLine();
+    public Customer() {     //this constructor add a customer to the bank using the method in Bank class
+        try {
+            System.out.printf("Enter customer ID: ");
+            this.setCustomerID(scanner.nextInt());
+            scanner.nextLine();
 
-        System.out.printf("Enter customer name: ");
-        this.setCustomerName(scanner.nextLine());
+            System.out.printf("Enter customer name: ");
+            this.setCustomerName(scanner.nextLine());
 
-        System.out.printf("Enter customer phone number: ");
-        this.setPhoneNumber(scanner.nextInt());
-        scanner.nextLine();
+            System.out.printf("Enter customer phone number: ");
+            this.setPhoneNumber(scanner.nextInt());
+            scanner.nextLine();
 
-        System.out.printf("Enter customer email address: ");
-        this.setEmailAddress(scanner.nextLine());
+            System.out.printf("Enter customer email address: ");
+            this.setEmailAddress(scanner.nextLine());
 
-        scanner.close();
-
+        }catch (Exception e){
+            System.out.println("Error: "+ e.getMessage());
+        }
 
     }
 

@@ -23,7 +23,7 @@ public class Bank {
     public List<BankAccount> getAccountList(){
         return accountList;
     }
-    public void displayAccountInformation() {
+    public void displayAccountInformation() {       //this method is for display all account available
         System.out.println("=======Account Information=======");
         if (accountList.isEmpty()){
             System.out.println("No accounts found!");
@@ -37,7 +37,7 @@ public class Bank {
 
     }
 
-    public void displayCustomerInformation() {
+    public void displayCustomerInformation() {      //this method is for display all customers available
         System.out.println("=======Customer Information======= \n");
         if (customersList.isEmpty()){
             System.out.println("No customers found!");
@@ -54,7 +54,7 @@ public class Bank {
         return customersList;
     }
 
-    public void removeAccount(int accountNumber){
+    public void removeAccount(int accountNumber){       //to remove existing account
         Iterator<BankAccount> iterator = accountList.iterator();
         while (iterator.hasNext()){
             BankAccount account = iterator.next();
@@ -67,7 +67,7 @@ public class Bank {
         System.out.println("Account with account number " + accountNumber + " not found.");
     }
 
-    public void removeCustomer(int customerId){
+    public void removeCustomer(int customerId){     //to remove existing customer
         Iterator<Customer> iterator = customersList.iterator();
         while (iterator.hasNext()){
             Customer customer = iterator.next();
@@ -81,74 +81,80 @@ public class Bank {
     }
 
 
-    public void depositMoney() {
-        System.out.print("Enter account number to update: ");
-        int accountNumber = scanner.nextInt();
+    public void depositMoney() {        //deposit money to a account
+        try {
+            System.out.print("Enter account number to update: ");
+            int accountNumber = scanner.nextInt();
 
-        // Find the index of the account in the ArrayList
-        int index = -1;
-        for (int i = 0; i < accountList.size(); i++) {
-            if (accountList.get(i).getAccountNumber() == accountNumber) {
-                index = i;
-                break;
+            // Find the index of the account in the ArrayList
+            int index = -1;
+            for (int i = 0; i < accountList.size(); i++) {
+                if (accountList.get(i).getAccountNumber() == accountNumber) {
+                    index = i;
+                    break;
+                }
             }
-        }
 
-        if (index != -1) {
-            System.out.print("Enter amount to deposit: ");
-            double amount = scanner.nextDouble();
+            if (index != -1) {
+                System.out.print("Enter amount to deposit: ");
+                double amount = scanner.nextDouble();
 
-            // Update the balance of the specific BankAccount object
-            BankAccount account = accountList.get(index);
-            if (amount >= 0) {
-                double newBalance = amount + account.getAccountBalance();
-                account.setAccountBalance(newBalance);
-//                transaction.addAccount();
-                System.out.println("Balance updated successfully!");
+                // Update the balance of the specific BankAccount object
+                BankAccount account = accountList.get(index);
+                if (amount >= 0) {
+                    double newBalance = amount + account.getAccountBalance();
+                    account.setAccountBalance(newBalance);
+                    System.out.println("Balance updated successfully!");
+                } else {
+                    System.out.println("Enter a valid amount.");
+                }
             } else {
-                System.out.println("Enter a valid amount.");
+                System.out.println("Account not found with the given account number.");
             }
-        } else {
-            System.out.println("Account not found with the given account number.");
+        }catch (Exception e){
+            System.out.println("Error : " + e.getMessage());
         }
     }
 
 
-    public void withdrawMoney() {
-        System.out.print("Enter account number to withdraw: ");
-        int accountNumber = scanner.nextInt();
+    public void withdrawMoney() {       //withdraw money from an account
+       try {
+           System.out.print("Enter account number to withdraw: ");
+           int accountNumber = scanner.nextInt();
 
-        // Find the index of the account in the ArrayList
-        int index = -1;
-        for (int i = 0; i < accountList.size(); i++) {
-            if (accountList.get(i).getAccountNumber() == accountNumber) {
-                index = i;
-                break;
-            }
-        }
+           // Find the index of the account in the ArrayList
+           int index = -1;
+           for (int i = 0; i < accountList.size(); i++) {
+               if (accountList.get(i).getAccountNumber() == accountNumber) {
+                   index = i;
+                   break;
+               }
+           }
 
-        if (index != -1) {
-            System.out.print("Enter amount to withdraw: ");
-            double amount = scanner.nextDouble();
+           if (index != -1) {
+               System.out.print("Enter amount to withdraw: ");
+               double amount = scanner.nextDouble();
 
-            // Update the balance of the specific BankAccount object
-            BankAccount account = accountList.get(index);
-            if (amount >= 0) {
-                if (amount > account.getAccountBalance()){
-                    System.out.println("Not enough money");
-                }
-                else{
-                    double newBalance =  account.getAccountBalance() - amount;
-                    account.setAccountBalance(newBalance);
-                    System.out.println("Balance updated successfully!");
-                }
+               // Update the balance of the specific BankAccount object
+               BankAccount account = accountList.get(index);
+               if (amount >= 0) {
+                   if (amount > account.getAccountBalance()) {
+                       System.out.println("Not enough money");
+                   } else {
+                       double newBalance = account.getAccountBalance() - amount;
+                       account.setAccountBalance(newBalance);
+                       System.out.println("Balance updated successfully!");
+                   }
 
-            } else {
-                System.out.println("Enter a valid amount.");
-            }
-        } else {
-            System.out.println("Account not found with the given account number.");
-        }
+               } else {
+                   System.out.println("Enter a valid amount.");
+               }
+           } else {
+               System.out.println("Account not found with the given account number.");
+           }
+       }catch (Exception e){
+           System.out.println("Error: " + e.getMessage());
+       }
     }
 
 }

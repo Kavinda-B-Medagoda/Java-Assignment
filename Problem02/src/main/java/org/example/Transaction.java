@@ -24,15 +24,12 @@ public class Transaction {
         this.email = email;
         this.phoneNumber = phoneNumber;
     }
-
     public int getAccountNumber() {
         return accountNumber;
     }
-
     public void setAccountNumber(int accountNumber) {
         this.accountNumber = accountNumber;
     }
-
     public void addAccount(Transaction transaction){
         transactionList.add(transaction);
     }

@@ -10,45 +10,45 @@ public class BankAccount {
     private String accountType;
 
     Scanner scanner = new Scanner(System.in);
-    public BankAccount() {
+    public BankAccount() {      //this constructor ask the service from user
         Bank bank = new Bank();
-
         int userInput = 0;
-        do {
-            System.out.println("1. Add account");
-            System.out.println("2. Deposit money");
-            System.out.println("3. Withdraw money");
-            System.out.println("4. Back to main menu");
-            System.out.printf("Enter your choice (1-4): ");
+        try {
+            do {
+                System.out.println("1. Add account");
+                System.out.println("2. Deposit money");
+                System.out.println("3. Withdraw money");
+                System.out.println("4. Back to main menu");
+                System.out.printf("Enter your choice (1-4): ");
 
-            if (scanner.hasNextInt()){
-                userInput = scanner.nextInt();
-                scanner.nextLine();  // Consume the newline character
-            }else{
-                System.out.println("Invalid input! Please enter valid number.");
-                continue;
-            }
+                if (scanner.hasNextInt()) {
+                    userInput = scanner.nextInt();
+                    scanner.nextLine();  // Consume the newline character
+                } else {
+                    System.out.println("Invalid input! Please enter valid number.");
+                    continue;
+                }
 
-            switch (userInput){
-                case 1:
+                switch (userInput) {
+                    case 1:
+                        bank.addAccount(createAccount());   //create account
+                        break;
+                    case 2:
+                        bank.depositMoney();        //deposit money to a account
+                        break;
+                    case 3:
+                        bank.withdrawMoney();       //withdraw money from a account
+                        break;
+                    default:
+                        System.out.println("Please enter valid input!");
+                        break;
 
-                    bank.addAccount(createAccount());
-                    break;
-
-                case 2:
-                    bank.depositMoney();
-                    break;
-
-                case 3:
-                    bank.withdrawMoney();
-                    break;
-                default:
-                    System.out.println("Please enter valid input!");
-                    break;
-
-            }
-        }while (userInput != 4);
+                }
+            } while (userInput != 4);
 //        scanner.close();
+        }catch (Exception e){
+            System.out.println("Error: " + e.getMessage());
+        }
     }
 
     public BankAccount(int accountNumber, String holderName, double accountBalance, String accountType) {
@@ -56,10 +56,6 @@ public class BankAccount {
         this.holderName = holderName;
         this.accountBalance = accountBalance;
         this.accountType = accountType;
-    }
-
-    public BankAccount(int accountNumber, double amount) {
-
     }
 
     public int getAccountNumber() {
@@ -102,49 +98,55 @@ public class BankAccount {
                 "Account Type: " + accountType + "\n\n" ;
     }
 
-    public BankAccount createAccount(){
+    public BankAccount createAccount(){     //this method return a BankAccount object to the Bank class
 
         int number;
         double balance ;
         String holderName;
         String accountType ;
 
+        try {
+            do {
+                System.out.print("Enter account number: ");
+                number = scanner.nextInt();
+                scanner.nextLine();  // Consume the newline character
+                if (String.valueOf(number).length() > 5) {
 
-        do {
-            System.out.print("Enter account number: ");
-             number = scanner.nextInt();
-            scanner.nextLine();  // Consume the newline character
-            if (String.valueOf(number).length() > 5) {
-
-                break;
-            } else {
-                System.out.println("Invalid account number! Please enter a number with more than 5 digits.");
-            }
-        } while (true);
-
-        System.out.print("Enter holder name: ");
-         holderName = scanner.nextLine();
-        System.out.print("Enter account type: ");
-         accountType = scanner.nextLine();
-        do {
-            System.out.print("Enter account balance: ");
-            if (scanner.hasNextDouble()) {
-                 balance = scanner.nextDouble();
-                 scanner.nextLine();
-                if (balance >= 0) {
                     break;
                 } else {
-                    System.out.println("Invalid input! Please enter a non-negative balance.");
+                    System.out.println("Invalid account number! Please enter a number with more than 5 digits.");
                 }
-            } else {
-                System.out.println("Invalid input! Please enter a valid number.");
-                scanner.next();
-            }
-        } while (true);
-        BankAccount bankAccount = new BankAccount(number,holderName,balance,accountType);
-        System.out.println("Account created successfully!");
-        return bankAccount;
+            } while (true);
+
+            System.out.print("Enter holder name: ");
+            holderName = scanner.nextLine();
+            System.out.print("Enter account type: ");
+            accountType = scanner.nextLine();
+            do {
+                System.out.print("Enter account balance: ");
+                if (scanner.hasNextDouble()) {
+                    balance = scanner.nextDouble();
+                    scanner.nextLine();
+                    if (balance >= 0) {
+                        break;
+                    } else {
+                        System.out.println("Invalid input! Please enter a non-negative balance.");
+                    }
+                } else {
+                    System.out.println("Invalid input! Please enter a valid number.");
+                    scanner.next();
+                }
+            } while (true);
+            BankAccount bankAccount = new BankAccount(number, holderName, balance, accountType);
+            System.out.println("Account created successfully!");
+            return bankAccount;
+    }catch (Exception e){
+        System.out.println("Error: " + e.getMessage());
+        return null;
     }
+
+    }
+
 
 }
 
