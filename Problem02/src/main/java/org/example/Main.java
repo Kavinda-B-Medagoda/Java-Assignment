@@ -59,7 +59,7 @@ try {
                 System.out.println("Please enter valid input!");
         }
     }
-    while (userChoise != 8);
+    while (userChoise != 7);
     scanner.close();
 }catch (Exception e){
     System.out.println("Error: "+ e.getMessage());

@@ -93,6 +93,9 @@ public class Bank {
                     index = i;
                     break;
                 }
+                else{
+                    System.out.println("Can't find this account!");
+                }
             }
 
             if (index != -1) {
