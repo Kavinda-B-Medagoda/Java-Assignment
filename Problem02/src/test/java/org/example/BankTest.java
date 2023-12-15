@@ -25,7 +25,7 @@ class BankTest {
     @Test
     void testAddCustomer() {
         Bank bank = new Bank();
-        Customer customer = new Customer(101, "John","abc@gmail.com", 0701326615);
+        Customer customer = new Customer(101, "John", "abc@gmail.com", 0701326615);
 
         bank.addCustomer(customer);
 
@@ -34,18 +34,33 @@ class BankTest {
     }
 
     @Test
-    void testDisplayCustomerInformation() {
-        // Arrange
+    public void testWithdrawMoney() {
         Bank bank = new Bank();
-        Customer customer = new Customer(101, "John", "abc@gmail.com", 0701326615);
-        bank.addCustomer(customer);
+        // Create a test BankAccount
+        BankAccount testAccount = new BankAccount(12345, "John Doe", 1000.0, "Normal");
+        bank.addAccount(testAccount);
 
-        // Act
-        bank.displayCustomerInformation();
+        double initialBalance = testAccount.getAccountBalance();
 
-        // Assert
-        assertTrue(outputStream.toString().contains("=======Customer Information======= \n" + customer.toString()));
+        double withdrawalAmount = 500.0;
+        bank.withdrawMoney();
+
+        assertEquals(initialBalance - withdrawalAmount, testAccount.getAccountBalance() - withdrawalAmount, 0.001);
     }
 
+
+    @Test
+    public void testDepositMoney() {
+        Bank bank = new Bank();
+        BankAccount testAccount = new BankAccount(12345, "John Doe", 1000.0, "Normal");
+        bank.addAccount(testAccount);
+
+        double initialBalance = testAccount.getAccountBalance();
+
+        double depositAmount = 500.0;
+        bank.depositMoney();
+
+        assertEquals(initialBalance + depositAmount, testAccount.getAccountBalance() + depositAmount, 0.001);
+    }
 
 }

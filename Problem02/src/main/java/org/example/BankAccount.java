@@ -1,15 +1,22 @@
 package org.example;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Iterator;
 import java.util.Scanner;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class BankAccount {
+    final Logger logger = LoggerFactory.getLogger(BankAccount.class);
     private int accountNumber;
     private String holderName;
     private double accountBalance;
     private String accountType;
 
     Scanner scanner = new Scanner(System.in);
+
     public BankAccount() {      //this constructor ask the service from user
         Bank bank = new Bank();
         int userInput = 0;
@@ -25,7 +32,7 @@ public class BankAccount {
                     userInput = scanner.nextInt();
                     scanner.nextLine();  // Consume the newline character
                 } else {
-                    System.out.println("Invalid input! Please enter valid number.");
+                    logger.error("Invalid input! Please enter valid number.");
                     continue;
                 }
 
@@ -40,14 +47,14 @@ public class BankAccount {
                         bank.withdrawMoney();       //withdraw money from a account
                         break;
                     default:
-                        System.out.println("Please enter valid input!");
+                        logger.warn("Please enter valid input!");
                         break;
 
                 }
             } while (userInput != 4);
 //        scanner.close();
-        }catch (Exception e){
-            System.out.println("Error: " + e.getMessage());
+        } catch (Exception e) {
+            logger.error("Error: " + e.getMessage());
         }
     }
 
@@ -95,15 +102,15 @@ public class BankAccount {
         return "Account Number: " + accountNumber + "\n" +
                 "Holder Name: " + holderName + "\n" +
                 "Balance: Rs." + accountBalance + "\n" +
-                "Account Type: " + accountType + "\n\n" ;
+                "Account Type: " + accountType + "\n\n";
     }
 
-    public BankAccount createAccount(){     //this method return a BankAccount object to the Bank class
+    public BankAccount createAccount() {     //this method return a BankAccount object to the Bank class
 
         int number;
-        double balance ;
+        double balance;
         String holderName;
-        String accountType ;
+        String accountType;
 
         try {
             do {
@@ -111,10 +118,9 @@ public class BankAccount {
                 number = scanner.nextInt();
                 scanner.nextLine();  // Consume the newline character
                 if (String.valueOf(number).length() > 5) {
-
                     break;
                 } else {
-                    System.out.println("Invalid account number! Please enter a number with more than 5 digits.");
+                    logger.warn("Invalid account number! Please enter a number with more than 5 digits.");
                 }
             } while (true);
 
@@ -130,20 +136,20 @@ public class BankAccount {
                     if (balance >= 0) {
                         break;
                     } else {
-                        System.out.println("Invalid input! Please enter a non-negative balance.");
+                        logger.warn("Invalid input! Please enter a non-negative balance.");
                     }
                 } else {
-                    System.out.println("Invalid input! Please enter a valid number.");
+                    logger.warn("Invalid input! Please enter a valid number.");
                     scanner.next();
                 }
             } while (true);
             BankAccount bankAccount = new BankAccount(number, holderName, balance, accountType);
-            System.out.println("Account created successfully!");
+            logger.info("Account created successfully!");
             return bankAccount;
-    }catch (Exception e){
-        System.out.println("Error: " + e.getMessage());
-        return null;
-    }
+        } catch (Exception e) {
+            logger.error("Error: " + e.getMessage());
+            return null;
+        }
 
     }
 
