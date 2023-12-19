@@ -15,6 +15,10 @@ public class Bank {
     Transaction transaction = new Transaction();
     Scanner scanner = new Scanner(System.in);
     private static List<BankAccount> accountList = new ArrayList<>();
+
+    public Bank() {
+    }
+
     private static List<Customer> customersList = new ArrayList<>();
 
     public void addAccount(BankAccount bankAccount) {
@@ -66,7 +70,6 @@ public class Bank {
             if (account.getAccountNumber() == accountNumber) {
                 iterator.remove();
                 logger.info("Account removed successfully!");
-                return;
             }
         }
         logger.warn("Account with account number " + accountNumber + " not found.");
@@ -79,7 +82,6 @@ public class Bank {
             if (customer.getCustomerID() == customerId) {
                 iterator.remove();
                 logger.info("Customer removed successfully!");
-                return;
             }
         }
         logger.warn("Customer with customer Id " + customerId + " not found.");

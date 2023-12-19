@@ -79,7 +79,7 @@ public class Transaction {
         transactionArrayList.add(this);
     }
 
-    public void desiplayTranscations() {
+    public void displayTransactions() {
         int accountNumber;
         System.out.printf("Enter account Number: ");
         accountNumber = scanner.nextInt();

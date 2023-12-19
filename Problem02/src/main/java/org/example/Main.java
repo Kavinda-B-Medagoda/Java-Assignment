@@ -63,7 +63,7 @@ public class Main {
 
                     case 7:
                         Transaction transaction = new Transaction();
-                        transaction.desiplayTranscations();
+                        transaction.displayTransactions();
                         break;
 
                     default:
